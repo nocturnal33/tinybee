@@ -1336,7 +1336,7 @@
    */
   //#define DIGIPOT_I2C_ADDRESS_A 0x2C  // Unshifted slave address for first DIGIPOT
   //#define DIGIPOT_I2C_ADDRESS_B 0x2D  // Unshifted slave address for second DIGIPOT
-#endif
+#endif#
 
 //===========================================================================
 //=============================Additional Features===========================
@@ -4071,8 +4071,8 @@
   #define WEBSUPPORT          // MODIFIED Start a webserver (which may include auto-discovery)
   #define OTASUPPORT          // MODIFIED Support over-the-air firmware updates
   #define WIFI_CUSTOM_COMMAND // MODIFIED Accept feature config commands (e.g., WiFi ESP3D) from the host
-  // #define WIFI_SSID "bearwalkers"  // MODIFIED
-  // #define WIFI_PWD  "#Penguins96"  // MODIFIED
+  // #define WIFI_SSID "--"  // MODIFIED
+  // #define WIFI_PWD  "--"  // MODIFIED
 
   /**
    * To set a default WiFi SSID / Password, create a file called Configuration_Secure.h with
