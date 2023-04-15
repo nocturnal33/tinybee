@@ -884,7 +884,7 @@
 //#define XY_COUNTERPART_BACKOFF_MM 0         // (mm) Backoff X after homing Y, and vice-versa
 
 //#define QUICK_HOME                          // If G28 contains XY do a diagonal move first
-//#define HOME_Y_BEFORE_X                     // If G28 contains XY home Y before X
+#define HOME_Y_BEFORE_X     // MODIFIED (GEARS SLIPPING)                // If G28 contains XY home Y before X
 //#define HOME_Z_FIRST                        // Home Z first. Requires a Z-MIN endstop (not a probe).
 //#define CODEPENDENT_XY_HOMING               // If X/Y can't home without homing Y/X first
 
@@ -1027,11 +1027,11 @@
 //
 // Add the G35 command to read bed corners to help adjust screws. Requires a bed probe.
 //
-//#define ASSISTED_TRAMMING
+// #define ASSISTED_TRAMMING
 #if ENABLED(ASSISTED_TRAMMING)
 
   // Define positions for probe points.
-  #define TRAMMING_POINT_XY { {  20, 20 }, { 180,  20 }, { 180, 180 }, { 20, 180 } }
+  #define TRAMMING_POINT_XY { {  20, 20 }, { 250,  20 }, { 250, 180 }, { 20, 250 } }
 
   // Define position names for probe points.
   #define TRAMMING_POINT_NAME_1 "Front-Left"
@@ -1336,7 +1336,7 @@
    */
   //#define DIGIPOT_I2C_ADDRESS_A 0x2C  // Unshifted slave address for first DIGIPOT
   //#define DIGIPOT_I2C_ADDRESS_B 0x2D  // Unshifted slave address for second DIGIPOT
-#endif#
+#endif
 
 //===========================================================================
 //=============================Additional Features===========================
@@ -1346,7 +1346,7 @@
 
 #if HAS_MANUAL_MOVE_MENU
   #define MANUAL_FEEDRATE { 50*60, 50*60, 4*60, 2*60 } // (mm/min) Feedrates for manual moves along X, Y, Z, E from panel
-  #define FINE_MANUAL_MOVE 0.025    // (mm) Smallest manual move (< 0.1mm) applying to Z on most machines
+  #define FINE_MANUAL_MOVE 0.05  // MODIFIED    // (mm) Smallest manual move (< 0.1mm) applying to Z on most machines
   #if IS_ULTIPANEL
     #define MANUAL_E_MOVES_RELATIVE // Display extruder move distance rather than "position"
     #define ULTIPANEL_FEEDMULTIPLY  // Encoder sets the feedrate multiplier on the Status Screen
@@ -1373,17 +1373,17 @@
 //#define LCD_BACKLIGHT_TIMEOUT_MINS 1  // (minutes) Timeout before turning off the backlight
 
 #if HAS_BED_PROBE && EITHER(HAS_MARLINUI_MENU, HAS_TFT_LVGL_UI)
-  //#define PROBE_OFFSET_WIZARD       // Add a Probe Z Offset calibration option to the LCD menu
+  #define PROBE_OFFSET_WIZARD     // MODIFIED  // Add a Probe Z Offset calibration option to the LCD menu
   #if ENABLED(PROBE_OFFSET_WIZARD)
     /**
      * Enable to init the Probe Z-Offset when starting the Wizard.
      * Use a height slightly above the estimated nozzle-to-probe Z offset.
      * For example, with an offset of -5, consider a starting height of -4.
      */
-    //#define PROBE_OFFSET_WIZARD_START_Z -4.0
+    #define PROBE_OFFSET_WIZARD_START_Z -1.0  // MODIFIED
 
     // Set a convenient position to do the calibration (probing point and nozzle/bed-distance)
-    //#define PROBE_OFFSET_WIZARD_XY_POS { X_CENTER, Y_CENTER }
+    #define PROBE_OFFSET_WIZARD_XY_POS { X_CENTER, Y_CENTER }  // MODIFIED
   #endif
 #endif
 
@@ -1439,7 +1439,7 @@
   #endif
 
   // Scroll a longer status message into view
-  //#define STATUS_MESSAGE_SCROLLING
+  #define STATUS_MESSAGE_SCROLLING  // MODIFIED
 
   // Apply a timeout to low-priority status messages
   //#define STATUS_MESSAGE_TIMEOUT_SEC 30 // (seconds)
@@ -2058,9 +2058,9 @@
  *
  * Warning: Does not respect endstops!
  */
-//#define BABYSTEPPING
+#define BABYSTEPPING  // MODIFIED
 #if ENABLED(BABYSTEPPING)
-  //#define INTEGRATED_BABYSTEPPING         // EXPERIMENTAL integration of babystepping into the Stepper ISR
+  #define INTEGRATED_BABYSTEPPING         // MODIFIED// EXPERIMENTAL integration of babystepping into the Stepper ISR
   //#define BABYSTEP_WITHOUT_HOMING
   //#define BABYSTEP_ALWAYS_AVAILABLE       // Allow babystepping at all times (not just during movement).
   //#define BABYSTEP_XY                     // Also enable X/Y Babystepping. Not supported on DELTA!
@@ -2081,7 +2081,7 @@
 
   //#define BABYSTEP_DISPLAY_TOTAL          // Display total babysteps since last G28
 
-  //#define BABYSTEP_ZPROBE_OFFSET          // Combine M851 Z and Babystepping
+  #define BABYSTEP_ZPROBE_OFFSET      // MODIFIED    // Combine M851 Z and Babystepping
   #if ENABLED(BABYSTEP_ZPROBE_OFFSET)
     //#define BABYSTEP_HOTEND_Z_OFFSET      // For multiple hotends, babystep relative Z offsets
     //#define BABYSTEP_ZPROBE_GFX_OVERLAY   // Enable graphical overlay on Z-offset editor
@@ -2126,7 +2126,7 @@
  * For example, after homing a rotational axis the Z probe might not be perpendicular to the bed.
  * Choose values the orient the bed horizontally and the Z-probe vertically.
  */
-//#define SAFE_BED_LEVELING_START_X 0.0
+#define SAFE_BED_LEVELING_START_X 0.0
 //#define SAFE_BED_LEVELING_START_Y 0.0
 //#define SAFE_BED_LEVELING_START_Z 0.0
 //#define SAFE_BED_LEVELING_START_I 0.0
@@ -2141,12 +2141,16 @@
  * Override if the automatically selected points are inadequate.
  */
 #if EITHER(AUTO_BED_LEVELING_3POINT, AUTO_BED_LEVELING_UBL)
-  //#define PROBE_PT_1_X 15
-  //#define PROBE_PT_1_Y 180
-  //#define PROBE_PT_2_X 15
-  //#define PROBE_PT_2_Y 20
-  //#define PROBE_PT_3_X 170
-  //#define PROBE_PT_3_Y 20
+// MODIFIED ALL POINTS
+//   #define PROBE_PT_1_X 70
+//   #define PROBE_PT_1_Y 250
+
+//   #define PROBE_PT_2_X 150
+//   #define PROBE_PT_2_Y 150
+
+
+//   #define PROBE_PT_3_X 250
+//   #define PROBE_PT_3_Y 70
 #endif
 
 /**
@@ -2169,9 +2173,9 @@
  * the probe to be unable to reach any points.
  */
 #if PROBE_SELECTED && !IS_KINEMATIC
-  //#define PROBING_MARGIN_LEFT PROBING_MARGIN
+  #define PROBING_MARGIN_LEFT PROBING_MARGIN   // MODIFIED
   //#define PROBING_MARGIN_RIGHT PROBING_MARGIN
-  //#define PROBING_MARGIN_FRONT PROBING_MARGIN
+  #define PROBING_MARGIN_FRONT PROBING_MARGIN  // MODIFIED
   //#define PROBING_MARGIN_BACK PROBING_MARGIN
 #endif
 
@@ -4071,8 +4075,8 @@
   #define WEBSUPPORT          // MODIFIED Start a webserver (which may include auto-discovery)
   #define OTASUPPORT          // MODIFIED Support over-the-air firmware updates
   #define WIFI_CUSTOM_COMMAND // MODIFIED Accept feature config commands (e.g., WiFi ESP3D) from the host
-  // #define WIFI_SSID "--"  // MODIFIED
-  // #define WIFI_PWD  "--"  // MODIFIED
+  #define WIFI_SSID "bearwalkers"  // MODIFIED
+  #define WIFI_PWD  "#Penguins96"  // MODIFIED
 
   /**
    * To set a default WiFi SSID / Password, create a file called Configuration_Secure.h with
