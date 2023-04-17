@@ -1217,7 +1217,7 @@
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
 // #define DEFAULT_MAX_ACCELERATION      { 3000, 3000, 100, 10000 }
-#define DEFAULT_MAX_ACCELERATION      { 9000, 9000, 100, 10000 }  // MODIFIED
+#define DEFAULT_MAX_ACCELERATION      { 6000, 6000, 100, 10000 }  // MODIFIED
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -1513,12 +1513,12 @@
  *     O-- FRONT --+
  */
 // #define NOZZLE_TO_PROBE_OFFSET { 10, 10, 0 }
-#define NOZZLE_TO_PROBE_OFFSET { -25, -35, 1 } // MODIFIED for probe
+#define NOZZLE_TO_PROBE_OFFSET { -40, -40, 0 } // MODIFIED for probe
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
 // #define PROBING_MARGIN 10
-#define PROBING_MARGIN 30  // MODIFIED 
+#define PROBING_MARGIN 10 
 
 // X and Y axis travel speed (mm/min) between probes
 #define XY_PROBE_FEEDRATE (133*60) // CHECK SETTINGS
@@ -2108,8 +2108,8 @@
 
 // Manually set the home position. Leave these undefined for automatic settings.
 // For DELTA this is the top-center of the Cartesian print volume.
-#define MANUAL_X_HOME_POS 45  // MODIFIED
-#define MANUAL_Y_HOME_POS 45  // MODIFIED
+// #define MANUAL_X_HOME_POS 45 
+// #define MANUAL_Y_HOME_POS 45 
 //#define MANUAL_Z_HOME_POS 0
 //#define MANUAL_I_HOME_POS 0
 //#define MANUAL_J_HOME_POS 0
@@ -2134,7 +2134,7 @@
 
 // Homing speeds (linear=mm/min, rotational=°/min)
 // #define HOMING_FEEDRATE_MM_M { (50*60), (50*60), (4*60) } 
-#define HOMING_FEEDRATE_MM_M { (50*60), (50*60), (8*60) }  // MODIFIED
+#define HOMING_FEEDRATE_MM_M { (30*60), (50*60), (4*60) }  // MODIFIED
 
 // Validate that endstops are triggered on homing moves
 #define VALIDATE_HOMING_ENDSTOPS
